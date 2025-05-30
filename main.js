@@ -4,6 +4,7 @@ let computer = 0;
 let user = 0;
 const getNewCard = document.querySelector("#get-card");
 const startOver = document.querySelector("#start-over");
+const draw = document.querySelector("#draw");
 
 getNewCard.addEventListener("click", async () => {
   const res = await fetch(
@@ -14,7 +15,7 @@ getNewCard.addEventListener("click", async () => {
   isDraw = true;
 });
 
-document.querySelector("#draw").addEventListener("click", () => {
+draw.addEventListener("click", () => {
   if (isDraw) {
     fetch(
       `https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`
@@ -34,6 +35,8 @@ document.querySelector("#draw").addEventListener("click", () => {
 
         if (data.remaining == 0) {
           startOver.style.display = "block";
+          draw.classList = "game-over"
+          draw.disabled = true
           if (computer > user) {
             document.querySelector(".game-name").textContent =
               "Computer Is the Winner";
