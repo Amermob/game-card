@@ -15,13 +15,12 @@ getNewCard.addEventListener("click", async () => {
   isDraw = true;
 });
 
-draw.addEventListener("click", () => {
+draw.addEventListener("click", async () => {
   if (isDraw) {
-    fetch(
+    const res = await fetch(
       `https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`
     )
-      .then((res) => res.json())
-      .then((data) => {
+      const data = await res.json()
         document.querySelector(
           ".remaining"
         ).textContent = `Remaining Card: ${data.remaining}`;
@@ -43,12 +42,12 @@ draw.addEventListener("click", () => {
           } else if (computer < user) {
             document.querySelector(".game-name").textContent =
               "You are the Winner";
-          } else if (computer === user) {
+          } else if (computer === user || user === computer) {
             document.querySelector(".game-name").textContent = "A Draw 😲!";
           }
         }
         results(data.cards[0].value, data.cards[1].value);
-      });
+      
   } else {
     alert("Please Craw a Card First");
   }
